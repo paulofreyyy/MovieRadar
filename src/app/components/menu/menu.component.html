@@ -1,0 +1,49 @@
+<mat-toolbar style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <mat-icon>movie</mat-icon>
+        <h3>MovieRadar</h3>
+    </div>
+
+    <div class="menuButtons">
+        <div class="searchContainer">
+            <mat-form-field appearance="fill" class="searchField">
+                <mat-icon matPrefix>search</mat-icon>
+                <input 
+                    matInput
+                    placeholder="Pesquisar filme..."
+                    [(ngModel)]="query"
+                    (input)="onSearchChange()"
+                    
+                >
+                <button
+                    *ngIf="query"
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Limpar pesquisa"
+                    (click)="clearSearch()"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+        <button 
+            mat-button
+            [routerLink]="'/'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+        >
+            <mat-icon>account_circle</mat-icon>
+            Início
+        </button>
+        <button 
+            mat-button
+            [routerLink]="'/favoritos'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+        >
+            <mat-icon>favorite</mat-icon>
+            Favoritos
+        </button>
+    </div>
+</mat-toolbar>

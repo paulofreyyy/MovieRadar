@@ -1,0 +1,22 @@
+mat-toolbar {
+  background-color: #02060f;
+  color: #fff;
+}
+
+.menuButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    color: #fff;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #DC2626;
+    }
+
+    &.active{
+        color: #DC2626;
+    }
+  }
+}
