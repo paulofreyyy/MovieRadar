@@ -1,0 +1,7 @@
+<div class="container">
+  <h2>Populares</h2>
+
+  <div class="popular-movies">
+    <app-movie-card *ngFor="let movie of popularMovies$ | async" [movie]="movie"></app-movie-card>
+  </div>
+</div>
