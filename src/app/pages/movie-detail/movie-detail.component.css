@@ -21,5 +21,59 @@
                 border-radius: 5px;
             }
         }
+
+        .movie-info{
+            margin: 0 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .movie-title{
+                font-size: 2rem;
+                font-weight: 600;
+                margin: 0;
+            }
+
+            .movie-genres{
+                display: flex;
+                gap: 10px;
+            }
+
+            .movie-stats{
+                display: flex;
+                gap: 20px;
+
+                .movie-rating{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #9ca3af;
+                }
+
+                .movie-runtime{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #9ca3af;
+                }
+
+                .movie-realease-date{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #9ca3af;
+                }
+            }
+
+            .movie-overview{
+                color: #9ca3af;
+                h4{
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                    color: #fff;
+                    margin: 0;
+                }
+            }
+        }
     }
 }

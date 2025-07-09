@@ -23,9 +23,33 @@
         </div>
 
         <div class="movie-info">
-            <h3>{{movie.title}}</h3>
+            <h3 class="movie-title">{{movie.title}}</h3>
 
-           
+            <div class="movie-genres">
+                <app-genre-chip *ngFor="let genre of movie.genres" [genre]="genre.name"/>
+            </div>
+            
+            <div class="movie-stats">
+                <span class="movie-rating">
+                    <mat-icon>star</mat-icon>
+                    {{movie.vote_average}}
+                </span>
+
+                <span class="movie-runtime">
+                    <mat-icon>access_time</mat-icon>
+                    {{formatRuntime(movie.runtime)}}
+                </span>
+
+                <span class="movie-realease-date">
+                    <mat-icon>calendar_today</mat-icon>
+                    {{movie.release_date | date:'dd/MM/yyyy'}}
+                </span>
+            </div>
+
+            <div class="movie-overview">
+                <h4>Sinopse</h4>
+                <p>{{movie.overview}}</p>
+            </div>
         </div>
     </div>
 </div>

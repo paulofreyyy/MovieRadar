@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
+import { GenreChipComponent } from "../../components/genre-chip/genre-chip.component";
 
 @Component({
     selector: 'app-movie-detail',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
         RouterModule,
         MatChipsModule,
         CommonModule,
+        GenreChipComponent
     ],
     templateUrl: './movie-detail.component.html',
     styleUrl: './movie-detail.component.css'
@@ -35,5 +37,11 @@ export class MovieDetailComponent implements OnInit {
                 console.error('Error loading movie details:', error);
             }
         });
+    }
+
+    formatRuntime(runtime: number): string {
+        const hours = Math.floor(runtime / 60);
+        const minutes = runtime % 60;
+        return `${hours}h${minutes > 0 ? ' ' + minutes + 'min' : ''}`;
     }
 }
