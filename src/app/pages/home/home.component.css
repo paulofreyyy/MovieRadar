@@ -8,4 +8,9 @@
   gap: 20px;
 }
 
-
+.loading {
+  text-align: center;
+  padding: 1rem;
+  color: gray;
+  width: 100%;
+}

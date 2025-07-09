@@ -10,8 +10,8 @@ export class MoviesService {
     private apiUrl = environment.apiUrl
     constructor(private http: HttpClient) { }
 
-    getPopularMovies() {
-        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}movie/popular?language=pt-BR&page=1`, {
+    getPopularMovies(currentPage: number) {
+        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}movie/popular?language=pt-BR&page=${currentPage}`, {
             headers: {
                 authorization: `Bearer ${environment.apiKey}`
             }

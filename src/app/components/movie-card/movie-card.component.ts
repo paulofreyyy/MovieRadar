@@ -14,6 +14,4 @@ import { Movie, MoviesService } from '../../services/movies.service';
 })
 export class MovieCardComponent {
     @Input() movie!: Movie;
-
- 
 }

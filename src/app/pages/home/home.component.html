@@ -1,7 +1,8 @@
 <div class="container">
   <h2>Populares</h2>
 
-  <div class="popular-movies">
-    <app-movie-card *ngFor="let movie of popularMovies$ | async" [movie]="movie"></app-movie-card>
+  <div class="popular-movies" >
+    <app-movie-card *ngFor="let movie of popularMovies" [movie]="movie"></app-movie-card>
+    <div *ngIf="isLoading" class="loading">Carregando...</div>
   </div>
 </div>
