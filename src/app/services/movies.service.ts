@@ -27,6 +27,14 @@ export class MoviesService {
             }
         });
     }
+
+    getMovieCredits(movieId: number) {
+        return this.http.get<MovieCredits>(`${this.apiUrl}movie/${movieId}/credits?language=pt-BR`, {
+            headers: {
+                authorization: `Bearer ${environment.apiKey}`
+            }
+        });
+    }
 }
 export interface Movie {
     adult: boolean;
@@ -104,3 +112,37 @@ export interface SpokenLanguage {
     name: string;
 }
 
+export interface MovieCredits{
+    cast: MovieCast[];
+    crew: MovieCrew[];
+    id: number;
+}
+
+export interface MovieCast {
+    adult: boolean;
+    gender: number;
+    cast_id: number;
+    character: string;
+    credit_id: string;
+    id: number;
+    known_for_department: string;
+    name: string;
+    order: number;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+}
+
+export interface MovieCrew {
+    adult: boolean;
+    credit_id: string;
+    department: string;
+    gender: number;
+    id: number;
+    job: string;
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string | null;
+}
