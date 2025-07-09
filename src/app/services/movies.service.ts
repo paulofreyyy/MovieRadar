@@ -35,6 +35,14 @@ export class MoviesService {
             }
         });
     }
+
+    getMovieTrailer(movieId: number) {
+        return this.http.get<{ results: { key: string }[] }>(`${this.apiUrl}movie/${movieId}/videos?language=pt-BR`, {
+            headers: {
+                authorization: `Bearer ${environment.apiKey}`
+            }
+        })
+    }
 }
 export interface Movie {
     adult: boolean;
@@ -112,7 +120,7 @@ export interface SpokenLanguage {
     name: string;
 }
 
-export interface MovieCredits{
+export interface MovieCredits {
     cast: MovieCast[];
     crew: MovieCrew[];
     id: number;
