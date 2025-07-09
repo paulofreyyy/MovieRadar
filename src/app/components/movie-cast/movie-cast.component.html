@@ -1,5 +1,7 @@
 <div class="container">
-    <div *ngFor="let actor of cast" class="actor-card">
+    <h4>Elenco</h4>
+    <div class="cast-container">
+        <div *ngFor="let actor of cast" class="actor-card">
         <img
             [src]="
                 actor.profile_path
@@ -13,4 +15,6 @@
             <span>{{ actor.character }}</span>
         </p>
     </div>
+    </div>
+    
 </div>
