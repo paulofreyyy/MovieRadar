@@ -3,6 +3,7 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieCardComponent } from "../../components/movie-card/movie-card.component";
 import { MoviesService } from '../../services/movies.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -16,6 +17,7 @@ import { MoviesService } from '../../services/movies.service';
 })
 export class HomeComponent implements OnInit{
     private movieService = inject(MoviesService);
+    private router = inject(Router);
 
     popularMovies: any[] = [];
     isLoading = false;
@@ -60,5 +62,7 @@ export class HomeComponent implements OnInit{
             }
         });
     }
-
+    goToDetails(movieId: number) {
+        this.router.navigate(['/filme', movieId]);
+    }
 }

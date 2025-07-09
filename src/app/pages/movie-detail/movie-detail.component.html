@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="container-header">
+        <button 
+        mat-icon-button 
+        [routerLink]="['/']" 
+        aria-label="Voltar"
+        >
+            <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+    </div>
+
+    <div class="movie-details">
+        <div class="movie-poster-container">
+            <img
+                [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+                [alt]="movie.title"
+                class="movie-poster"
+            />
+            <button mat-raised-button class="favorite-button">
+                <mat-icon>favorite</mat-icon>
+                Adicionar aos favoritos
+            </button>
+        </div>
+
+        <div class="movie-info">
+            <h3>{{movie.title}}</h3>
+
+           
+        </div>
+    </div>
+</div>

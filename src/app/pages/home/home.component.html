@@ -2,7 +2,7 @@
   <h2>Populares</h2>
 
   <div class="popular-movies" >
-    <app-movie-card *ngFor="let movie of popularMovies" [movie]="movie"></app-movie-card>
+    <app-movie-card *ngFor="let movie of popularMovies" [movie]="movie" (click)="goToDetails(movie.id)"></app-movie-card>
     <div *ngIf="isLoading" class="loading">Carregando...</div>
   </div>
 </div>
