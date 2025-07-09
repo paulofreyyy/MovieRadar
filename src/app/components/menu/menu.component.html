@@ -6,7 +6,7 @@
 
     <div class="menuButtons">
         <div class="searchContainer">
-            <mat-form-field appearance="fill" class="searchField">
+            <div class="searchField">
                 <mat-icon matPrefix>search</mat-icon>
                 <input 
                     matInput
@@ -17,14 +17,12 @@
                 >
                 <button
                     *ngIf="query"
-                    matSuffix
-                    mat-icon-button
                     aria-label="Limpar pesquisa"
                     (click)="clearSearch()"
                 >
-                    <mat-icon>close</mat-icon>
+                    <mat-icon >close</mat-icon>
                 </button>
-            </mat-form-field>
+            </div>
         </div>
 
         <button 
