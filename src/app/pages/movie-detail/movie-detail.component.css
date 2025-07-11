@@ -1,6 +1,14 @@
 .container {
   margin: 0 20px;
 
+  .container-header{
+    .back-button{
+      color: #fff;
+      margin-bottom: 20px;
+      background-color: #1F2937;
+    }
+  }
+
   .movie-details {
     display: flex;
 

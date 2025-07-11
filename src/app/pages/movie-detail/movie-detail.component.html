@@ -1,11 +1,13 @@
 <div class="container">
     <div class="container-header">
         <button 
-        mat-icon-button 
-        [routerLink]="['/']" 
-        aria-label="Voltar"
+            mat-raised-button 
+            (click)="goBack()"
+            aria-label="Voltar"
+            class="back-button"
         >
             <mat-icon>arrow_back_ios</mat-icon>
+            Voltar
         </button>
     </div>
 

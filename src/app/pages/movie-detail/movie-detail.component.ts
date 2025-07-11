@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { GenreChipComponent } from "../../components/genre-chip/genre-chip.component";
 import { MovieCastComponent } from "../../components/movie-cast/movie-cast.component";
 import { MatDialog } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ export class MovieDetailComponent implements OnInit {
     private movieService = inject(MoviesService);
     private activatedRoute = inject(ActivatedRoute);
     private dialog = inject(MatDialog);
+    private location = inject(Location);
 
     movieId = +this.activatedRoute.snapshot.paramMap.get('id')!;
     movie!: MovieDetails;
@@ -111,5 +112,9 @@ export class MovieDetailComponent implements OnInit {
         }
 
         localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+    }
+
+    goBack() {
+        this.location.back();
     }
 }
