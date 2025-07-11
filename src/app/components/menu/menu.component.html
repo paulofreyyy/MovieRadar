@@ -13,7 +13,8 @@
                     placeholder="Pesquisar filme..."
                     [(ngModel)]="query"
                     (input)="onSearchChange()"
-                    
+                    (focus)="inputFocused = true"
+                    (blur)="onInputBlur()"
                 >
                 <button
                     *ngIf="query"
@@ -22,6 +23,27 @@
                 >
                     <mat-icon >close</mat-icon>
                 </button>
+            </div>
+
+            <div class="search-results" *ngIf="searchResults.length && inputFocused">
+                <div 
+                    class="search-item"
+                    *ngFor="let movie of searchResults"
+                    (click)="router.navigate(['/filme', movie.id])"
+                >
+                     <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster_path" alt="Poster" />
+                    <div class="movie-info">
+                        <span>{{ movie.title }}</span>
+                        <p>
+                            <span class="movie-rating">
+                                <mat-icon>star</mat-icon>
+                                {{ movie.vote_average | number : "1.1-1" }}
+                            </span>
+                            <!-- Ano de lançamento -->
+                            <span>{{ movie.release_date | date: 'yyyy' }}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 

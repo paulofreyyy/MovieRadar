@@ -11,7 +11,7 @@ export class MoviesService {
     constructor(private http: HttpClient) { }
 
     getPopularMovies(currentPage: number) {
-        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}movie/popular?language=pt-BR&page=${currentPage}`, {
+        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}movie/popular?language=pt-BR&page=${currentPage}&include_adult=false`, {
             headers: {
                 authorization: `Bearer ${environment.apiKey}`
             }
@@ -42,6 +42,16 @@ export class MoviesService {
                 authorization: `Bearer ${environment.apiKey}`
             }
         })
+    }
+
+    searchMovies(query: string) {
+        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}search/movie?query=${encodeURIComponent(query)}&language=pt-BR&include_adult=false`, {
+            headers: {
+                authorization: `Bearer ${environment.apiKey}`
+            }
+        }).pipe(
+            map(response => response.results)
+        );
     }
 }
 export interface Movie {
