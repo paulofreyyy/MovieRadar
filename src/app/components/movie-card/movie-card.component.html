@@ -14,7 +14,9 @@
     <div class="movie-info">
         <div class="movie-header">
             <h3>{{ movie.title }}</h3>
-            <mat-icon>favorite</mat-icon>
+            <button mat-icon-button (click)="addToFavorites($event, movie)">
+                <mat-icon>favorite</mat-icon>
+            </button>
         </div>
 
         <div class="movie-details">

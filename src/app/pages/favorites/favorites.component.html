@@ -1,0 +1,8 @@
+<div class="container">
+  <h2>Favoritos</h2>
+
+  <div class="favorite-movies" >
+    <app-movie-card *ngFor="let movie of favoriteMovies" [movie]="movie" (click)="goToDetails(movie.id)"></app-movie-card>
+    <div *ngIf="isLoading" class="loading">Carregando...</div>
+  </div>
+</div>

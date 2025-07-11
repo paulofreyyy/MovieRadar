@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieCardComponent } from "../../components/movie-card/movie-card.component";
-import { MoviesService } from '../../services/movies.service';
+import { Movie, MoviesService } from '../../services/movies.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,11 +15,11 @@ import { Router } from '@angular/router';
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
     private movieService = inject(MoviesService);
     private router = inject(Router);
 
-    popularMovies: any[] = [];
+    popularMovies: Movie[] = [];
     isLoading = false;
     currentPage = 1;
 
@@ -33,21 +33,21 @@ export class HomeComponent implements OnInit{
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
 
-        const isBottom= scrollTop + windowHeight >= documentHeight - 100;
+        const isBottom = scrollTop + windowHeight >= documentHeight - 100;
 
-        if(isBottom && !this.isLoading) {
+        if (isBottom && !this.isLoading) {
             this.loadMoreMovies();
         }
     }
 
     onScroll(event: any) {
-        const {scrollTop, scrollHeight, clientHeight} = event.target;
-        if(scrollTop + clientHeight >= scrollHeight - 100 && !this.isLoading) {
+        const { scrollTop, scrollHeight, clientHeight } = event.target;
+        if (scrollTop + clientHeight >= scrollHeight - 100 && !this.isLoading) {
             this.loadMoreMovies();
         }
     }
 
-    loadMoreMovies(){
+    loadMoreMovies() {
         this.isLoading = true;
 
         this.movieService.getPopularMovies(this.currentPage).subscribe({

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MovieCredits, MovieDetails, MoviesService } from '../../services/movies.service';
+import { Movie, MovieCredits, MovieDetails, MoviesService } from '../../services/movies.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -86,5 +86,16 @@ export class MovieDetailComponent implements OnInit {
             maxWidth: '700px',
             data: { trailerKey: this.trailerKey }
         });
+    }
+
+    addToFavorites() {
+        const favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+        if (!favoriteMovies.some((m: Movie) => m.id === this.movie.id)) {
+            favoriteMovies.push(this.movie);
+            localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+        }else{
+            const updatedMovies = favoriteMovies.filter((m: Movie) => m.id !== this.movie.id);
+            localStorage.setItem('favoriteMovies', JSON.stringify(updatedMovies));
+        }
     }
 }
