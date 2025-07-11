@@ -22,9 +22,9 @@
                     <mat-icon class="trailer-icon">play_circle</mat-icon>
                     Assistir ao Trailer
                 </button>
-                <button mat-raised-button class="favorite-button" (click)="addToFavorites()">
-                    <mat-icon>favorite</mat-icon>
-                    Adicionar aos favoritos
+                <button mat-raised-button class="favorite-button" (click)="addToFavorites($event)">
+                    <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+                    {{ isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos' }}
                 </button>
             </div>
         </div>

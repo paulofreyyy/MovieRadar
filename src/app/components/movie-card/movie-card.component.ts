@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Movie, MoviesService } from '../../services/movies.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,18 +14,33 @@ import { MatButtonModule } from '@angular/material/button';
     templateUrl: './movie-card.component.html',
     styleUrl: './movie-card.component.css'
 })
-export class MovieCardComponent {
+export class MovieCardComponent  implements OnInit {
     @Input() movie!: Movie;
+    isFavorite = false;
 
-    addToFavorites(event:MouseEvent, selectedMovie: Movie) {
+    ngOnInit() {
+        this.checkIfFavorite();
+    }
+
+    checkIfFavorite() {
+        const favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+        this.isFavorite = favoriteMovies.some((m: Movie) => m.id === this.movie.id);
+    }
+
+    addToFavorites(event: MouseEvent, selectedMovie: Movie) {
         event.stopPropagation();
         const favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
-        if (!favoriteMovies.some((movie: Movie) => movie.id === selectedMovie.id)) {
+
+        const index = favoriteMovies.findIndex((m: Movie) => m.id === selectedMovie.id);
+
+        if (index === -1) {
             favoriteMovies.push(selectedMovie);
-            localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
-        }else{
-            const updatedMovies = favoriteMovies.filter((movie: Movie) => movie.id !== selectedMovie.id);
-            localStorage.setItem('favoriteMovies', JSON.stringify(updatedMovies));
+            this.isFavorite = true;
+        } else {
+            favoriteMovies.splice(index, 1);
+            this.isFavorite = false;
         }
+
+        localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
     }
 }

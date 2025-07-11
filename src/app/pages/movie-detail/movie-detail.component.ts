@@ -29,47 +29,49 @@ export class MovieDetailComponent implements OnInit {
     private activatedRoute = inject(ActivatedRoute);
     private dialog = inject(MatDialog);
 
-    movieId!: number;
+    movieId = +this.activatedRoute.snapshot.paramMap.get('id')!;
     movie!: MovieDetails;
     movieCredits!: MovieCredits;
     trailerKey: string | null = null;
+    isFavorite = false;
 
-    ngOnInit() {
-        this.movieId = + this.activatedRoute.snapshot.paramMap.get('id')!;
+    ngOnInit(): void {
+        this.loadMovie();
+        this.loadCredits();
+        this.loadTrailer();
+    }
+
+    private loadMovie(): void {
         this.movieService.getMovieById(this.movieId).subscribe({
-            next: (movie) => {
+            next: movie => {
                 this.movie = movie;
+                this.updateFavoriteState();
             },
-            error: (error) => {
-                console.error('Error loading movie details:', error);
-            }
+            error: err => console.error('Erro ao carregar o filme:', err)
         });
+    }
 
+    private loadCredits(): void {
         this.movieService.getMovieCredits(this.movieId).subscribe({
-            next: (credits) => {
-                this.movieCredits = credits;
-            }
-        })
+            next: credits => this.movieCredits = credits
+        });
+    }
 
+    private loadTrailer(): void {
         this.movieService.getMovieTrailer(this.movieId).subscribe({
-            next: (data) => {
-                const trailer = data.results.find(
-                    (v: any) => v.site === 'YouTube' && v.type === 'Trailer'
-                );
-                this.trailerKey = trailer ? trailer.key : null;
+            next: ({ results }) => {
+                const trailer = results.find((v: any) => v.site === 'YouTube' && v.type === 'Trailer');
+                this.trailerKey = trailer?.key ?? null;
             },
-            error: () => {
-                this.trailerKey = null;
-            }
+            error: () => this.trailerKey = null
         });
     }
 
     get topCast() {
-        if (!this.movieCredits || !this.movieCredits.cast) return [];
-        return this.movieCredits.cast
-            .slice()
+        return this.movieCredits?.cast
+            ?.slice()
             .sort((a, b) => b.popularity - a.popularity)
-            .slice(0, 5);
+            .slice(0, 5) ?? [];
     }
 
     formatRuntime(runtime: number): string {
@@ -88,14 +90,26 @@ export class MovieDetailComponent implements OnInit {
         });
     }
 
-    addToFavorites() {
+    private updateFavoriteState(): void {
+        const stored = localStorage.getItem('favoriteMovies');
+        const favorites: Movie[] = stored ? JSON.parse(stored) : [];
+        this.isFavorite = favorites.some(m => m.id === this.movie.id);
+    }
+
+    addToFavorites(event: MouseEvent) {
+        event.stopPropagation();
         const favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
-        if (!favoriteMovies.some((m: Movie) => m.id === this.movie.id)) {
+
+        const index = favoriteMovies.findIndex((m: Movie) => m.id === this.movie.id);
+
+        if (index === -1) {
             favoriteMovies.push(this.movie);
-            localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
-        }else{
-            const updatedMovies = favoriteMovies.filter((m: Movie) => m.id !== this.movie.id);
-            localStorage.setItem('favoriteMovies', JSON.stringify(updatedMovies));
+            this.isFavorite = true;
+        } else {
+            favoriteMovies.splice(index, 1);
+            this.isFavorite = false;
         }
+
+        localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
     }
 }

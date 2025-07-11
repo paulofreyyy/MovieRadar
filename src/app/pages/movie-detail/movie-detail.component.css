@@ -31,6 +31,9 @@
           background-color: #dc2626;
           color: #fff;
           border-radius: 5px;
+          .favorite-icon{
+            color: black;
+          }
         }
       }
     }
