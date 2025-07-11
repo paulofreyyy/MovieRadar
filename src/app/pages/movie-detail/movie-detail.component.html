@@ -11,20 +11,22 @@
 
     <div class="movie-details">
         <div class="movie-poster-container">
-            <div class="movie-poster" (click)="openTrailer()">
+            <div class="movie-poster">
                 <img
                     [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
                     [alt]="movie.title"
                 />
-                <div class="movie-poster-overlay" *ngIf="trailerKey">
-                    <mat-icon class="play-icon">play_circle</mat-icon>
-                    <span>Assistir Trailer</span>
-                </div>
             </div>
-            <button mat-raised-button class="favorite-button">
-                <mat-icon>favorite</mat-icon>
-                Adicionar aos favoritos
-            </button>
+            <div class="movie-actions">
+                <button mat-raised-button class="trailer-button" *ngIf="trailerKey" (click)="openTrailer()">
+                    <mat-icon class="trailer-icon">play_circle</mat-icon>
+                    Assistir ao Trailer
+                </button>
+                <button mat-raised-button class="favorite-button">
+                    <mat-icon>favorite</mat-icon>
+                    Adicionar aos favoritos
+                </button>
+            </div>
         </div>
 
         <div class="movie-info">
