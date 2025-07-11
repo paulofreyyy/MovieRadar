@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { MovieCast } from '../../services/movies.service';
 import { CommonModule } from '@angular/common';
+import { MovieCast } from '../../models/movie.models';
 
 @Component({
     selector: 'app-movie-cast',

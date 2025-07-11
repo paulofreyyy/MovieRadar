@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Movie } from '../../services/movies.service';
+import { Movie } from '../../models/movie.models';
 
 @Component({
     selector: 'app-favorites',

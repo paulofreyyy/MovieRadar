@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Movie, MoviesService } from '../../services/movies.service';
 import { MatButtonModule } from '@angular/material/button';
+import { Movie } from '../../models/movie.models';
 
 @Component({
     selector: 'app-movie-card',

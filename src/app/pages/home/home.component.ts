@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieCardComponent } from "../../components/movie-card/movie-card.component";
-import { Movie, MoviesService } from '../../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 import { Router } from '@angular/router';
+import { Movie } from '../../models/movie.models';
 
 @Component({
     selector: 'app-home',

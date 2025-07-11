@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Movie, MovieCredits, MovieDetails, MoviesService } from '../../services/movies.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +8,8 @@ import { GenreChipComponent } from "../../components/genre-chip/genre-chip.compo
 import { MovieCastComponent } from "../../components/movie-cast/movie-cast.component";
 import { MatDialog } from '@angular/material/dialog';
 import { TrailerDialogComponent } from '../../components/trailer-dialog/trailer-dialog.component';
+import { MoviesService } from '../../services/movies.service';
+import { Movie, MovieCredits, MovieDetails } from '../../models/movie.models';
 
 @Component({
     selector: 'app-movie-detail',

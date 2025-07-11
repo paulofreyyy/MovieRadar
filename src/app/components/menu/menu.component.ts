@@ -8,7 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { Movie, MoviesService } from '../../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
+import { Movie } from '../../models/movie.models';
 
 @Component({
     selector: 'app-menu',
