@@ -15,7 +15,6 @@ import { Movie } from '../../models/movie.models';
 })
 export class FavoritesComponent implements OnInit {
     private router = inject(Router);
-    isLoading = false;
     favoriteMovies: Movie[] = [];
 
     ngOnInit() {
@@ -27,5 +26,9 @@ export class FavoritesComponent implements OnInit {
 
     goToDetails(movieId: number) {
         this.router.navigate(['/filme', movieId]);
+    }
+
+    onRemovedFromFavorites(movieId: number) {
+        this.favoriteMovies = this.favoriteMovies.filter(movie => movie.id !== movieId);
     }
 }

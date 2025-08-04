@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FavoriteMovie, Movie } from '../../models/movie.models';
@@ -17,6 +17,8 @@ import { FavoriteService } from '../../services/favorite.service';
 })
 export class MovieCardComponent implements OnInit {
     @Input() movie!: Movie;
+    @Output() removedFromFavorites = new EventEmitter<number>();
+
     isFavorite = false;
     private favoriteService = inject(FavoriteService);
 
@@ -32,12 +34,10 @@ export class MovieCardComponent implements OnInit {
     addToFavorites(event: MouseEvent) {
         event?.stopPropagation();
         if (this.movie) {
-            const favorite: FavoriteMovie = {
-                id: this.movie.id,
-                title: this.movie.title,
-                poster_path: this.movie.poster_path
-            };
-            this.isFavorite = this.favoriteService.toggleFavorite(favorite);
+            this.isFavorite = this.favoriteService.toggleFavorite(this.movie)
+            if (!this.isFavorite) {
+                this.removedFromFavorites.emit(this.movie.id);
+            }
         }
     }
 }
