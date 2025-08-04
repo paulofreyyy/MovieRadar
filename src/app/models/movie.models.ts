@@ -108,3 +108,9 @@ export interface MovieCrew {
     popularity: number;
     profile_path: string | null;
 }
+
+export interface FavoriteMovie {
+    id: number;
+    title: string;
+    poster_path: string;
+}

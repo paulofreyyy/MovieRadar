@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Movie } from '../../models/movie.models';
+import { FavoriteMovie, Movie } from '../../models/movie.models';
+import { FavoriteService } from '../../services/favorite.service';
 
 @Component({
     selector: 'app-movie-card',
@@ -14,9 +15,10 @@ import { Movie } from '../../models/movie.models';
     templateUrl: './movie-card.component.html',
     styleUrl: './movie-card.component.css'
 })
-export class MovieCardComponent  implements OnInit {
+export class MovieCardComponent implements OnInit {
     @Input() movie!: Movie;
     isFavorite = false;
+    private favoriteService = inject(FavoriteService);
 
     ngOnInit() {
         this.checkIfFavorite();
@@ -27,20 +29,15 @@ export class MovieCardComponent  implements OnInit {
         this.isFavorite = favoriteMovies.some((m: Movie) => m.id === this.movie.id);
     }
 
-    addToFavorites(event: MouseEvent, selectedMovie: Movie) {
-        event.stopPropagation();
-        const favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
-
-        const index = favoriteMovies.findIndex((m: Movie) => m.id === selectedMovie.id);
-
-        if (index === -1) {
-            favoriteMovies.push(selectedMovie);
-            this.isFavorite = true;
-        } else {
-            favoriteMovies.splice(index, 1);
-            this.isFavorite = false;
+    addToFavorites(event: MouseEvent) {
+        event?.stopPropagation();
+        if (this.movie) {
+            const favorite: FavoriteMovie = {
+                id: this.movie.id,
+                title: this.movie.title,
+                poster_path: this.movie.poster_path
+            };
+            this.isFavorite = this.favoriteService.toggleFavorite(favorite);
         }
-
-        localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
     }
 }

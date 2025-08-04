@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { map, Observable } from 'rxjs';
 import { Movie, MovieCredits, MovieDetails } from '../models/movie.models';
@@ -11,8 +11,7 @@ export class MoviesService {
     private readonly apiUrl = environment.apiUrl;
     private readonly baseLanguage = 'language=pt-BR';
     private readonly includeAdult = 'include_adult=false';
-
-    constructor(private http: HttpClient) { }
+    private http = inject(HttpClient);
 
     private get headers(): HttpHeaders {
         return new HttpHeaders({
@@ -20,30 +19,26 @@ export class MoviesService {
         });
     }
 
-    private get<T>(endpoint: string): Observable<T> {
-        return this.http.get<T>(`${this.apiUrl}${endpoint}`, { headers: this.headers });
-    }
-
     getPopularMovies(page: number): Observable<Movie[]> {
         const url = `movie/popular?${this.baseLanguage}&page=${page}&${this.includeAdult}`;
-        return this.get<{ results: Movie[] }>(url).pipe(map(res => res.results));
+        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}${url}`, { headers: this.headers }).pipe(map(res => res.results));
     }
 
     getMovieById(id: number): Observable<MovieDetails> {
-        return this.get<MovieDetails>(`movie/${id}?${this.baseLanguage}`);
+        return this.http.get<MovieDetails>(`${this.apiUrl}/movie/${id}?${this.baseLanguage}`, { headers: this.headers });
     }
 
     getMovieCredits(id: number): Observable<MovieCredits> {
-        return this.get<MovieCredits>(`movie/${id}/credits?${this.baseLanguage}`);
+        return this.http.get<MovieCredits>(`${this.apiUrl}/movie/${id}/credits?${this.baseLanguage}`, { headers: this.headers });
     }
 
     getMovieTrailer(id: number): Observable<{ results: { key: string }[] }> {
-        return this.get<{ results: { key: string }[] }>(`movie/${id}/videos?${this.baseLanguage}`);
+        return this.http.get<{ results: { key: string }[] }>(`${this.apiUrl}/movie/${id}/videos?${this.baseLanguage}`, { headers: this.headers });
     }
 
     searchMovies(query: string): Observable<Movie[]> {
         const encodedQuery = encodeURIComponent(query);
         const url = `search/movie?query=${encodedQuery}&${this.baseLanguage}&${this.includeAdult}`;
-        return this.get<{ results: Movie[] }>(url).pipe(map(res => res.results));
+        return this.http.get<{ results: Movie[] }>(`${this.apiUrl}${url}`, { headers: this.headers }).pipe(map(res => res.results));
     }
 }

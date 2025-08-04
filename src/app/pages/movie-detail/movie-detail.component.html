@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="movie">
     <div class="container-header">
         <button 
             mat-raised-button 
@@ -15,7 +15,7 @@
         <div class="movie-poster-container">
             <div class="movie-poster">
                 <img
-                    [src]="movie.poster_path !== null? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : '/image_not_found.jpg'"
+                    [src]="movie.poster_path !== null ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : '/image_not_found.jpg'"
                     [alt]="movie.title"
                 />
             </div>

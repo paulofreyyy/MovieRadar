@@ -14,7 +14,7 @@
     <div class="movie-info">
         <div class="movie-header">
             <h3>{{ movie.title }}</h3>
-            <button mat-icon-button (click)="addToFavorites($event, movie)">
+            <button mat-icon-button (click)="addToFavorites($event)">
                 <mat-icon style="color: #fff;">{{isFavorite ? 'favorite' : 'favorite_border'}}</mat-icon>
             </button>
         </div>
