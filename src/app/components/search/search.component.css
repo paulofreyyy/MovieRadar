@@ -71,6 +71,9 @@
 
     .movie-info {
       margin-left: 10px;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       span {
         font-size: 1rem;
