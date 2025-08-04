@@ -1,5 +1,9 @@
-<div class="container" *ngIf="movie">
-    <div class="container-header">
+<div class="container" >
+    <ng-container *ngIf="isLoading">
+        <mat-spinner class="loading-spinner" diameter="50"></mat-spinner>
+    </ng-container>
+
+    <div class="container-header" *ngIf="!isLoading && movie">
         <button 
             mat-raised-button 
             (click)="goBack()"
@@ -11,7 +15,7 @@
         </button>
     </div>
 
-    <div class="movie-details">
+    <div class="movie-details" *ngIf="!isLoading && movie">
         <div class="movie-poster-container">
             <div class="movie-poster">
                 <img

@@ -1,6 +1,10 @@
 .container {
   margin: 0 20px;
 
+  .loading-spinner{
+    margin: 20px auto;
+  }
+
   .container-header{
     .back-button{
       color: #fff;

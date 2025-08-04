@@ -12,6 +12,7 @@ import { MoviesService } from '../../services/movies.service';
 import { Movie, MovieCredits, MovieDetails } from '../../models/movie.models';
 import { forkJoin } from 'rxjs';
 import { FavoriteService } from '../../services/favorite.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-movie-detail',
@@ -22,7 +23,8 @@ import { FavoriteService } from '../../services/favorite.service';
         MatChipsModule,
         CommonModule,
         GenreChipComponent,
-        MovieCastComponent
+        MovieCastComponent,
+        MatProgressSpinnerModule
     ],
     templateUrl: './movie-detail.component.html',
     styleUrl: './movie-detail.component.css'
@@ -39,8 +41,10 @@ export class MovieDetailComponent implements OnInit {
     movieCredits: MovieCredits | null = null;
     trailerKey: string | null = null;
     isFavorite = false;
+    isLoading = false;
 
     ngOnInit(): void {
+        this.isLoading = true;
         forkJoin({
             movie: this.movieService.getMovieById(this.movieId),
             credits: this.movieService.getMovieCredits(this.movieId),
@@ -53,8 +57,12 @@ export class MovieDetailComponent implements OnInit {
                 this.trailerKey = trailer.results.find((v: any) => v.site === 'YouTube' && v.type === 'Trailer')?.key ?? null;
 
                 this.updateFavoriteState();
+                this.isLoading = false;
             },
-            error: err => console.error('Erro ao carregar os dados do filme:', err)
+            error: err => { 
+                console.error('Erro ao carregar os dados do filme:', err);
+                this.isLoading = false;
+             }
         })
     }
 
@@ -87,7 +95,7 @@ export class MovieDetailComponent implements OnInit {
 
     addToFavorites(event: MouseEvent) {
         event?.stopPropagation();
-        if(this.movie) this.isFavorite = this.favoriteService.toggleFavorite(this.movie);
+        if (this.movie) this.isFavorite = this.favoriteService.toggleFavorite(this.movie);
     }
 
     goBack() {
