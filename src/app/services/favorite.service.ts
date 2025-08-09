@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FavoriteMovie, MovieDetails } from "../models/movie.models";
+import { FavoriteMovie } from "../models/movie.models";
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {

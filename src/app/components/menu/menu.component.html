@@ -25,5 +25,14 @@
             <mat-icon>favorite</mat-icon>
             Favoritos
         </button>
+        <button 
+            mat-button
+            [routerLink]="'/meus-filmes'"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+        >
+            <mat-icon>live_tv</mat-icon>
+            Meus filmes
+        </button>
     </div>
 </mat-toolbar>

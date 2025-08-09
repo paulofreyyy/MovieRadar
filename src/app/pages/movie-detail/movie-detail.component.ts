@@ -13,6 +13,7 @@ import { Movie, MovieCredits, MovieDetails } from '../../models/movie.models';
 import { forkJoin } from 'rxjs';
 import { FavoriteService } from '../../services/favorite.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
     selector: 'app-movie-detail',
@@ -24,7 +25,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         CommonModule,
         GenreChipComponent,
         MovieCastComponent,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatMenuModule,
     ],
     templateUrl: './movie-detail.component.html',
     styleUrl: './movie-detail.component.css'
